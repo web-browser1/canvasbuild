@@ -11,13 +11,11 @@ import java.util.ArrayList;
 public class CanvasEngine {
 	
 	
-	
-	Context mContext;
-	float tile = 0;
-	float tw = 0;
-	float tt = 0;
+	private Context mContext;
+	private float tile = 0;
+	private float tw = 0;
+	private float tt = 0;
 
-	
 	
 	public CanvasEngine(Context context, float tile, float tw, float tt) {
 		// TODO Auto-generated constructor stub
@@ -28,30 +26,22 @@ public class CanvasEngine {
 		this.tw = tw;
 		this.tt = tt;
 		
-		
 		initialize();
 		
 	}
-	
-	
+
 	
 	public void initialize() {
 		
-		
-		
 	}
 	
-	
 
-
-
-
-	Canvas g_canvas;
-	
-	int g_layout = 0;
+	private Canvas g_canvas;
+	private int g_layout = 0;
+	private float split = 0f;
 	
 	
-	float split = 0f;
+	/// ### READING THE DATA STRUCTURE, from file CanvasGraphic.java
 
 	
 	public void squareshape(Canvas canvas, int layout, float[][][][] dimensional4, float fx, float fy, int index ) {
@@ -60,9 +50,7 @@ public class CanvasEngine {
 		
 		g_canvas = canvas;
 		
-		
 		int s_gon = 0;
-		
 		
 		float stdW = dimensional4[s_gon][0][0][0]; // w
 		float stdH = dimensional4[s_gon][0][1][0]; // h
@@ -91,9 +79,7 @@ public class CanvasEngine {
 		
 		int sqlength = (int) shapes;
 		
-		
 		int d_index = sqlength / 4;
-		
 		
 		int c_index = 1;
 		
@@ -102,34 +88,22 @@ public class CanvasEngine {
 		int drawer = 1;
 		
 		if( index > 2 ) {
-			
 			drawer = 0;
 		}
-		
-		
 		
 		// start += 2;
 		
 		int start = 0;    // tiled index
-		
-		
 		int ntx = 1, nty = 1;
-		
-		
 		float tx = fx; float ty = fy;
-		
-		
+
 		for( int sq = 0; sq<sqlength; sq++ ) {
-					
 			
-			
-				
 				int colorL = dimensional4[s_gon][1+start][1].length;
 				
 				String[] strColor = new String[colorL];
 				
 				if( dimensional4[s_gon][1+start][1].length > 0 ) {
-					
 					
 					for( int c = 0; c<colorL; c++ ) {
 						
@@ -137,8 +111,6 @@ public class CanvasEngine {
 						
 						strColor[c] = String.format("#%06X", 0xFFFFFF & colorx0);
 					}
-					
-					
 					
 				} else {
 					
@@ -148,23 +120,15 @@ public class CanvasEngine {
 				}
 				
 				
-				
-				
-				
-				
-				
 				float type = dimensional4[s_gon][1+start][0][0]; // t
 					
-				
 				int vars = 0;
-				
-				
+			
 				if( dimensional4[s_gon][1+start][0].length == 2 ) {  
 					
 					vars = (int) dimensional4[s_gon][1+start][0][1]; // t
 					
 				}
-
 
 				int stroke = 0;
 
@@ -172,9 +136,6 @@ public class CanvasEngine {
 
 					stroke = (int) dimensional4[s_gon][1+start][0][2]; // s
 				}
-
-
-				
 				
 			/*
 				{ { type+0, vars+10 }, { Color.parseColor("#FFFFFF") } },
@@ -196,20 +157,6 @@ public class CanvasEngine {
 				}
 				
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				 
-				
-				
-				
-				
-				
 				if( dimensional4[s_gon][0][2].length == 3 ) {
 					float splitC = dimensional4[s_gon][0][2][2]; // split
 					
@@ -226,23 +173,18 @@ public class CanvasEngine {
 							nty = 0;
 						}
 						
-						
-						
 					}
 				}
 				
-				
-			if( vars != 7 && drawer == 1 )	 {
-				
-			tree( tx, ty, a_points, quadx, quady, (int)type+0, strColor , new int[]{ vars, stroke } );
 			
+				
+			if( vars != 7 && drawer == 1 ) {
+				tree( tx, ty, a_points, quadx, quady, (int)type+0, strColor , new int[]{ vars, stroke } );
 			
 			}
 			
 			if( vars == 7 && drawer == 1 ) {
-				
 				 quad(tx, ty, a_points, quadx, quady, (int)type+0, strColor , new int[]{ vars } );
-				
 				
 			}
 			
@@ -252,12 +194,8 @@ public class CanvasEngine {
 				
 				//s_gonborder("#222222", 0.1f, quadx, quady, tx, ty);
 				
-				
-				
-				
 				if( pos == 1 ) {
 					tx += 10f + split;
-					
 					ntx = 1;
 					
 					c_index++;
@@ -266,7 +204,6 @@ public class CanvasEngine {
 				if( pos == 2 ) {
 					tx = 0;
 					ty += 10f + split;
-					
 					nty = 1;
 					
 					c_index++;
@@ -290,9 +227,6 @@ public class CanvasEngine {
 					
 				}
 				
-				
-				
-				
 			} 
 			
 			start += 2;
@@ -311,18 +245,10 @@ public class CanvasEngine {
 				s_gonborder("#222222", 0.2f, quadx, quady, tx, ty);
 			}
 		}
-		
-		
 	
 		
 		
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	public void drawPixel() {
@@ -345,30 +271,22 @@ public class CanvasEngine {
 			
 		};
 		
-		
-		
-		
-		
-		
 	}
 	
 	
 	
-	
+	//### PIXEL RECT SOLUTION, square shapes, 3 x 3 grid, draw tiles by numbers 1 - 9
 	
 
 	public float [][] pixelRect( float[] numbers1, int sizeX, int sizeY ) {
 		
 		
-		// Multiple rectangle move to
+		/* Shape examples
 		
-		/*
-		float numbers1[] = { 2, 3, 4, 5, 7 }; // plus
+		float numbers1[] = { 2, 3, 4, 5, 7 }; //
 		
-		float numbers0[] = { 3, 4, 5, 9 }; // crab
+		float numbers0[] = { 3, 4, 5, 9 }; // 
 		*/
-		
-		
 		
 		float cWidth = 10 / sizeX;
 		float cHeight = 10 / sizeY;
@@ -384,7 +302,6 @@ public class CanvasEngine {
 		float cx = 0, cy = 0;
 		
 		for( int c = 1; c<(clength+1); c++ ) {
-			
 			
 			float pos = 0;
 			
@@ -441,23 +358,10 @@ public class CanvasEngine {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
+	// ## BEZIER CURVE SHAPE SOLUTION ###
 	
 	public void quad(float x_base, float y_base, float[][] a_points,
 			float quadx, float quady, int style, String[] color, int[] vars ) {
-		
 		
 		float ux = 0;
 		float uy = 0;
@@ -467,15 +371,9 @@ public class CanvasEngine {
 	  	
 	  	float x2_var = 0, y2_var = 0;
 	  	
-	  	
 	  	Path path02 = new Path();
 
-
-
 		Canvas can = new Canvas();
-
-
-	//	can.drawL
 
 	  	
 	 	float p_height = 0;
@@ -483,31 +381,26 @@ public class CanvasEngine {
 	  	float p_x = 100;
 	  	float p_y = 100;
 	  	
-	  	
 		if( REPLACE_CANVAS ==  1) {
 		  	  ux = x_base*tile;
 			  uy = y_base*tile;
 				
 		  	}
 	  	
-	
-		
-		
-		/*
-    	float qsx = 2;
-    	float qsy = 2;
-    	float qsw = 2;
-    	
-    	path02.moveTo(0, quady*5);
-    	
-    	//path02.quadTo(quadx*10, quady*5, quadx*5, 0);
-    	
-    	path02.quadTo(quadx*5, quady*0, quadx*10, quady*5);
-    	
-    	path02.lineTo(0, quady*5);
-    	
-    	*/
-    	
+			/*
+		float qsx = 2;
+		float qsy = 2;
+		float qsw = 2;
+
+		path02.moveTo(0, quady*5);
+
+		//path02.quadTo(quadx*10, quady*5, quadx*5, 0);
+
+		path02.quadTo(quadx*5, quady*0, quadx*10, quady*5);
+
+		path02.lineTo(0, quady*5);
+
+		*/
     	
 	  	
 	  	path02.moveTo( ((x_base + a_points[0][0])*quadx) + ux, ((y_base + a_points[0][1])*quady) + uy );
@@ -564,27 +457,16 @@ public class CanvasEngine {
 	  	
 	  	path02.moveTo( ((x_base + a_points[0][0])*quadx) + ux, ((y_base + a_points[0][1])*quady) + uy );
 	  	
-    	
-	 	
-	 	
-	 	
 	  	/*
 	  	, new float [][] {
 			{ 5, 5, 1 }
 	  	
 	  	*/
     	
-    
     	
-    	
-    	Paint paint = new Paint();
-	  	
-    	
-    	paint.setColor(Color.parseColor(color[0]));
-		
-    	
-    	
-		
+		Paint paint = new Paint();
+
+		paint.setColor(Color.parseColor(color[0]));
 
 	    paths.add(path02);
 	    paints.add(paint);
@@ -594,38 +476,15 @@ public class CanvasEngine {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public ArrayList<Path> getPath() {
-		
 		return this.paths;
 	}
 	
 	
 	public ArrayList<Paint> getPaint() {
-		
-		
 		return this.paints;
 	}
 	
-	
-	
-	
-
 	
 	
 	ArrayList<Path> paths = new ArrayList<Path>();
@@ -634,8 +493,6 @@ public class CanvasEngine {
 	float center_x = 0;
 	float center_y = 0;
 	
-
-
 	
 	int REPLACE_CANVAS = 0;
 	
@@ -997,11 +854,6 @@ public class CanvasEngine {
 					}
 
 				}
-
-
-
-
-				
 				
 				
 				paint.setDither(true);
@@ -1035,10 +887,6 @@ public class CanvasEngine {
 			//TODO
 			
 			if( style == 8 ) {
-				
-				
-
-				
 				
 				String opacity[] = { 
 						"FF", "E6", "CC", 
@@ -1099,26 +947,17 @@ public class CanvasEngine {
 					x0 = 0; x1 = 0; y0 = p_y+p_height; y1 = p_y;
 				}
 				
-				
-				
-				
 				paint.setDither(true);
 			    paint.setAntiAlias(true);
 			    
 			    paint.setStyle(Style.FILL);
 			    
 				
-				
 				paint.setShader(new LinearGradient( (x_base*tile)+(x0*quadx), (y_base*tile)+(y0*quady), (x_base*tile)+(x1*quadx), (y_base*tile)+(y1*quady), colorShades, null, TileMode.CLAMP));
 				
 				
 				
 			}
-			
-			
-			
-			
-			
 			
 			  /*
 			
@@ -1144,19 +983,10 @@ public class CanvasEngine {
 	
 	
 	
-	
-	
-	
-	
-	
-	
 
 	
 	private void s_gonborder(String color, float strokeW, float quadx, float quady, float x, float y ) {
-		
-		
-		 
-		  
+	
 		  //// *** Border 
 		  
 		  float stW = strokeW;
