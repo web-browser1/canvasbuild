@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /** CanvasEngine
 	 *
-	 * Author: David A. 2016, Copyright 2021
+	 * 2016, Copyright 2021
 	 *
 	 * */
 
