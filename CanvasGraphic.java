@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 
 	/** CanvasGraphic
 	 *
-	 * Author: David A. 2016, Copyright 2022
+	 * 2016, Copyright 2022
 	 *
 	 * */
 
